@@ -2,23 +2,16 @@
   <BaseLayout>
     <template v-slot:left>
       <div class="card-offset">
-        <div class="image-header" />
+        <div class="image-header zag" />
         <br />
         <div class="text-header m-32">Конференции</div>
         <div class="line"></div>
-        <div class="text-article">
-          Учавствуйте в любых конференциях или же создавайте свои. И помните
-          наука, путь к просвящению.
-        </div>
+        <div class="text-article">Учавствуйте в любых конференциях или же создавайте свои. И помните наука, путь к просвящению.</div>
       </div>
     </template>
     <template>
       <div>
-        <Card
-          v-for="conference in conferences"
-          :key="conference.id"
-          :conference="conference"
-        />
+        <Card v-for="conference in conferences" :key="conference.id" :conference="conference" />
       </div>
     </template>
     <template v-slot:right>
@@ -26,12 +19,7 @@
 
       <v-divider class="mhor-16" />
 
-      <MiniCard
-        v-for="conference in topConferences"
-        :key="conference.id"
-        :conference="conference"
-        :mini="true"
-      />
+      <MiniCard v-for="conference in topConferences" :key="conference.id" :conference="conference" :mini="true" />
     </template>
   </BaseLayout>
 </template>
@@ -92,24 +80,16 @@ export default Vue.extend({
   padding: 30px;
 }
 
-.card {
-  min-width: 270px;
-  background: #ffffff;
-  border: 2px solid #e6e7e7;
-  box-sizing: border-box;
-  border-radius: 5px;
-  margin: 40px;
-  height: 100%;
-  display: inline-block;
-}
-
 .image-header {
   display: inline-block;
-  border-radius: 50%;
   margin: 0 auto;
-  background-color: #d97272;
   height: 100px;
   width: 100px;
+}
+
+.zag {
+  border-radius: 50%;
+  background-color: #d97272;
 }
 
 .m-32 {

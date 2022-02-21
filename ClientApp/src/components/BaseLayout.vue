@@ -25,7 +25,7 @@
   box-sizing: border-box;
   border-radius: 5px;
   margin: 40px;
-  height: 100%;
+  height: fit-content;
   display: inline-block;
 }
 </style>

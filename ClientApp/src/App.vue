@@ -2,22 +2,16 @@
   <v-card>
     <v-app-bar color="#2c3e50">
       <v-toolbar-title>
-        <span style="color: #535556">Students</span>
-        <span style="color: #4e7bb0">GO</span>
+        <router-link to="/">
+          <span style="color: #535556">Students</span>
+          <span style="color: #4e7bb0">GO</span>
+        </router-link>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <div class="finder">
-        <v-autocomplete
-          hide-no-data
-          hide-details
-          hide
-          rounded
-          flat
-          placeholder="Поиск"
-          prepend-icon="mdi-magnify"
-        />
+        <v-autocomplete hide-no-data hide-details hide rounded flat placeholder="Поиск" prepend-icon="mdi-magnify" />
       </div>
 
       <v-spacer></v-spacer>
@@ -52,6 +46,8 @@ html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  box-sizing: border-box !important;
   background-color: #f7f8f9;
   font-family: Roboto;
   font-style: normal;
@@ -60,6 +56,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.v-sheet.v-card:not(.v-sheet--outlined) {
+  box-shadow: none !important;
 }
 
 img {

@@ -1,4 +1,5 @@
-﻿using Diploma.Domains;
+﻿using System.Globalization;
+using Diploma.Domains;
 using Diploma.Responses;
 
 namespace Diploma.Extensions
@@ -10,9 +11,9 @@ namespace Diploma.Extensions
             return new ClientResponse
             {
                 Id = client.Id,
-                FirstName = client.FirstName,
-                LastName = client.LastName,
-                SecondName = client.SecondName,
+                FirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(client.FirstName),
+                LastName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(client.LastName),
+                SecondName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(client.SecondName),
             };
         }
     }
