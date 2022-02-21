@@ -27,6 +27,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Conference from "@/services/models/Conference";
+import ConferenceService from "@/services/ConferenceService";
 
 export default Vue.extend({
   data() {
@@ -35,15 +36,11 @@ export default Vue.extend({
     };
   },
 
-  mounted() {
-    this.conference = new Conference({
-      id: 1,
-      name: "asfd",
-      organisationName: "asdf",
-      description: "af",
-      pictureUrl: "",
-      countParticipants: 5,
-    });
+  async mounted() {
+    var id = this.$route.params.id;
+
+    var response = (await ConferenceService.getConferenceById(Number.parseInt(id))) as any;
+    this.conference = new Conference(response.data);
   },
 });
 </script>

@@ -2,21 +2,23 @@
   <div>
     <v-app>
       <v-card class="mx-auto max-width" outlined>
-        <v-card-title>
-          <v-list-item two-line>
-            <v-list-item-avatar size="50">
-              <img :src="conference.pictureUrl" />
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title class="text-h6 mb-1">
-                {{ conference.name }}
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ conference.organisationName }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card-title>
+        <router-link :to="'about/' + conference.id">
+          <v-card-title>
+            <v-list-item two-line>
+              <v-list-item-avatar size="50">
+                <img :src="conference.pictureUrl" />
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title class="text-h6 mb-1">
+                  {{ conference.name }}
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ conference.organisationName }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card-title>
+        </router-link>
 
         <v-divider class="line" />
 

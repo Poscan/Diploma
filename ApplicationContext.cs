@@ -6,6 +6,7 @@ namespace Diploma
     public sealed class ApplicationContext : DbContext
     {
         public DbSet<Conference> Conferences { get; set; }
+        public DbSet<Client> Clients { get; set; }
         public ApplicationContext()
         {
             Database.EnsureCreated();

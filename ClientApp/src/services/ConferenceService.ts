@@ -7,4 +7,8 @@ export default {
   async getConferences(): Promise<Conference[]> {
     return await axios.get(apiUrlPrefix);
   },
+
+  async getConferenceById(id: number): Promise<Conference> {
+    return await axios.get(apiUrlPrefix + "/" + id);
+  }
 };

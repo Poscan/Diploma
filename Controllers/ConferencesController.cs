@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Diploma.Domains;
+using Diploma.Requests;
+using Diploma.Responses;
+using Diploma.Services;
 using Microsoft.AspNetCore.Mvc;
-using Npgsql;
 
 namespace Diploma.Controllers
 {
@@ -12,53 +12,58 @@ namespace Diploma.Controllers
     [Route("api/[controller]")]
     public class ConferencesController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<Conference>> GetConferences()
-        {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                try
-                {
-                    var conferences = db.Conferences.ToList();
+        private readonly IConferenceService _conferenceService;
 
-                    return Ok(conferences);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return BadRequest("Ошибка при получении списка конференций: " + e.Message);
-                }
+        public ConferencesController(IConferenceService conferenceService)
+        {
+            _conferenceService = conferenceService ?? throw new ArgumentNullException(nameof(conferenceService));
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<ConferenceResponse>> GetConferences()
+        {
+            try
+            {
+                var conferences = _conferenceService.GetConferences();
+
+                return Ok(conferences);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest("Ошибка при получении списка конференций: " + e.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<ConferenceResponse> GetConferenceById([FromRoute] long id)
+        {
+            try
+            {
+                var conferences = _conferenceService.GetConferenceById(id);
+
+                return Ok(conferences);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest("Ошибка отсутствует конференция с данным id: " + id + " " + e.Message);
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> SaveConference(Conference conference)
+        public async Task<ActionResult> SaveConference(ConferenceRequest conference)
         {
-            using (ApplicationContext db = new ApplicationContext())
+            try
             {
-                try
-                {
-                    var conferenceForSave = db.Conferences.SingleOrDefault(x => x.Id == conference.Id) ?? new Conference();
+                var conferenceForSave = await _conferenceService.SaveConference(conference);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
 
-                    conferenceForSave.Name = conference.Name;
-                    conferenceForSave.Description = conference.Description;
-                    conferenceForSave.PictureUrl = conference.PictureUrl;
-                    conferenceForSave.CountParticipants = conference.CountParticipants;
-
-                    if (conferenceForSave.Id == 0)
-                    {
-                        await db.Conferences.AddAsync(conferenceForSave);
-                    }
-
-                    await db.SaveChangesAsync();
-                    return Ok();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-
-                    return BadRequest("Ошибка при добавлении новой конференции: " + e.Message);
-                }
+                return BadRequest("Ошибка при добавлении новой конференции: " + e.Message);
             }
         }
     }

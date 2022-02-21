@@ -1,6 +1,6 @@
-﻿namespace Diploma.Domains
+﻿namespace Diploma.Responses
 {
-    public class Conference
+    public class ConferenceResponse
     {
         public int Id { get; set; }
 
@@ -8,6 +8,6 @@
         public string Description { get; set; }
         public string PictureUrl { get; set; }
         public int CountParticipants { get; set; }
-        public int OwnerId { get; set; }
+        public ClientResponse Owner { get; set; }
     }
 }

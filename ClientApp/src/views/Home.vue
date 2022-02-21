@@ -1,23 +1,27 @@
 <template>
-  <div class="home">
-    <div class="card card-offset">
-      <div class="image-header" />
-      <br />
-      <div class="text-header m-32">Конференции</div>
-      <div class="line"></div>
-      <div class="text-article">
-        Учавствуйте в любых конференциях или же создавайте свои. И помните
-        наука, путь к просвящению.
+  <BaseLayout>
+    <template v-slot:left>
+      <div class="card-offset">
+        <div class="image-header" />
+        <br />
+        <div class="text-header m-32">Конференции</div>
+        <div class="line"></div>
+        <div class="text-article">
+          Учавствуйте в любых конференциях или же создавайте свои. И помните
+          наука, путь к просвящению.
+        </div>
       </div>
-    </div>
-    <div class="main">
-      <Card
-        v-for="conference in conferences"
-        :key="conference.id"
-        :conference="conference"
-      />
-    </div>
-    <div class="card">
+    </template>
+    <template>
+      <div>
+        <Card
+          v-for="conference in conferences"
+          :key="conference.id"
+          :conference="conference"
+        />
+      </div>
+    </template>
+    <template v-slot:right>
       <div class="text-header m-16">Самые популярные</div>
 
       <v-divider class="mhor-16" />
@@ -28,14 +32,15 @@
         :conference="conference"
         :mini="true"
       />
-    </div>
-  </div>
+    </template>
+  </BaseLayout>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Card from "../components/ListItem.vue";
 import MiniCard from "../components/MiniListItem.vue";
+import BaseLayout from "../components/BaseLayout.vue";
 import ConferenceService from "@/services/ConferenceService";
 import Conference, { IConference } from "@/services/models/Conference";
 
@@ -43,6 +48,7 @@ export default Vue.extend({
   components: {
     Card,
     MiniCard,
+    BaseLayout,
   },
 
   data() {
